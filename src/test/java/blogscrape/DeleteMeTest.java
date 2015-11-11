@@ -3,7 +3,7 @@ package blogscrape;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
+//TODO: remove class
 public class DeleteMeTest {
 
 	@Test
