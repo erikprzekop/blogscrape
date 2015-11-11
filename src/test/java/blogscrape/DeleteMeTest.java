@@ -1,6 +1,6 @@
 package blogscrape;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -10,6 +10,11 @@ public class DeleteMeTest {
 	public void test() {
 		fail("Remove this whole class");
 		DeleteMe deleteme = new DeleteMe();
+	}
+	
+	@Test
+	public void testName() throws Exception {
+		fail("Testing push");
 	}
 
 }
