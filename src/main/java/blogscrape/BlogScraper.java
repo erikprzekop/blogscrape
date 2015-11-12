@@ -1,5 +1,5 @@
 package blogscrape;
 //TODO: rename class
-public class DeleteMe {
+public class BlogScraper {
 
 }

@@ -1,12 +1,14 @@
 package blogscrape;
 
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
-public class DeleteMeTest {
+public class BlogScraperTest {
 
 	@Test
 	public void test() {
-		DeleteMe deleteme = new DeleteMe();
+//		fail("start adding test");
 	}
 
 }
