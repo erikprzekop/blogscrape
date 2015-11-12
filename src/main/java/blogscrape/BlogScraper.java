@@ -16,6 +16,7 @@ public class BlogScraper {
 		List<String> keywordsList = buildKeywordsFromArgs(args);
 		Document doc = Jsoup.connect(urlParm).get();
 		String body = doc.body().text();
+		
 		System.out.println(new BlogScraper().scrape(body, keywordsList));
 	}
 
@@ -33,7 +34,6 @@ public class BlogScraper {
 		if (bodyText == null || bodyText.isEmpty()) {
 			return false;
 		}
-
 		for (String word : keywords) {
 			if (bodyText.toLowerCase().contains(word.toLowerCase()) == true) {
 				return true;
