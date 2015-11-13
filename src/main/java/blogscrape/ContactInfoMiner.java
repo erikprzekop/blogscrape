@@ -23,7 +23,7 @@ public class ContactInfoMiner {
 	}
 
 	public ContactInfo mine(ContactInfo contactInfo) throws IOException {
-		Document documentFromURL = documentProvider.getDocumentFromURL(contactInfo.getBlogAboutMeLink());
+		Document documentFromURL = documentProvider.getDocumentFromURL(contactInfo.getLink());
 		String bodyText = documentFromURL.body().text();
 		
 		attemptTwitterRegexScrape(contactInfo,twitterRegexPattern,bodyText);
