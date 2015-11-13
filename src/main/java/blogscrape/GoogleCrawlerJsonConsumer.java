@@ -20,7 +20,6 @@ public class GoogleCrawlerJsonConsumer {
 
 	public List<ContactInfo> mapJsonResponseToContactInfo(String googleSearchJsonResponse) throws Exception {
 		JSONObject searchJsonObject = new JSONObject(googleSearchJsonResponse);
-		
 		JSONArray contactJsonArray = (JSONArray) searchJsonObject.get("items");
 		for (int i = 0; i < contactJsonArray.length(); i++) {
 			JSONObject contactJsonObject = (JSONObject) contactJsonArray.get(i);
