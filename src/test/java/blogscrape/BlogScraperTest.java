@@ -18,9 +18,8 @@ public class BlogScraperTest {
 
 	@Before
 	public void setup() {
-		blogScraper = new BlogScraper();
 		mockCrawler = Mockito.mock(GoogleBlogCrawler.class);
-		blogScraper.setGoogleBlogCrawler(mockCrawler);
+		blogScraper = new BlogScraper(mockCrawler);
 	}
 	
 	@Test

@@ -6,12 +6,15 @@ import java.util.List;
 public class BlogScraper {
 
 	private static final int KEYWORD_PARM_INDEX = 0;
-	private GoogleBlogCrawler crawler;
+	private final GoogleBlogCrawler crawler;
+
+	public BlogScraper(final GoogleBlogCrawler crawler) {
+		this.crawler = crawler;
+	}
 
 	public static void main(String[] args) throws Exception {
 		List<String> keywordsList = buildKeywordsFromArgs(args);
-		BlogScraper blogScraper = new BlogScraper();
-		blogScraper.setGoogleBlogCrawler(new GoogleBlogCrawler());
+		BlogScraper blogScraper = new BlogScraper(new GoogleBlogCrawler());
 
 		blogScraper.scrape(keywordsList);
 	}
@@ -33,9 +36,5 @@ public class BlogScraper {
 			}
 		}
 		return Arrays.asList("Clean Code");
-	}
-
-	public void setGoogleBlogCrawler(GoogleBlogCrawler crawler) {
-		this.crawler = crawler;
 	}
 }
