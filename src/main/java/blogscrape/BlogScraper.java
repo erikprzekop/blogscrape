@@ -7,16 +7,18 @@ public class BlogScraper {
 
 	private static final int KEYWORD_PARM_INDEX = 0;
 	private GoogleBlogCrawler crawler;
-	
+
 	public static void main(String[] args) throws Exception {
 		List<String> keywordsList = buildKeywordsFromArgs(args);
 		BlogScraper blogScraper = new BlogScraper();
-		blogScraper.scrape(keywordsList);		
+		blogScraper.setGoogleBlogCrawler(new GoogleBlogCrawler());
+
+		blogScraper.scrape(keywordsList);
 	}
 
 	public List<ContactInfo> scrape(List<String> keywordsList) throws Exception {
 		List<ContactInfo> contacts = crawler.crawl();
-		
+
 		for (ContactInfo contactInfo : contacts) {
 			System.out.println(contactInfo.toString());
 		}
@@ -32,6 +34,7 @@ public class BlogScraper {
 		}
 		return Arrays.asList("Clean Code");
 	}
+
 	public void setGoogleBlogCrawler(GoogleBlogCrawler crawler) {
 		this.crawler = crawler;
 	}
