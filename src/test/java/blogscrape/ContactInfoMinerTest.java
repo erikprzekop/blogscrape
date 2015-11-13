@@ -21,11 +21,13 @@ public class ContactInfoMinerTest {
 	public void testMineReturnsContactInfoWithTwitterHandleWhenFound() throws Exception {
 		String expectedBodyText = "<div class='Content'>Some random information, here is my twitter handle: @MrCleanCoder you can follow my test driven tweets there.</div>";
 		ContactInfo info = new ContactInfo();
+		String link = "http://www.test.com";
+		info.setLink(link);
 		Document doc = new Document("");
 		doc.appendElement("body");
 		doc.body().text(expectedBodyText);
 		DocumentProvider mockDocumentProvider = Mockito.mock(DocumentProvider.class);
-		Mockito.when(mockDocumentProvider.getDocumentFromURL(Mockito.anyString())).thenReturn(doc);
+		Mockito.when(mockDocumentProvider.getDocumentFromURL(link)).thenReturn(doc);
 		
 		ContactInfoMiner miner = new ContactInfoMiner(mockDocumentProvider);
 		ContactInfo result = miner.mine(info);	
