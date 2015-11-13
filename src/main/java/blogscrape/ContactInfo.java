@@ -6,13 +6,25 @@ public class ContactInfo {
 	private String emailAddress;
 	private String facebookAddress;
 	private String blogAboutLink;
-	
-	public ContactInfo(){
-		linkedInInfo="";
-		twitterHandle="";
-		emailAddress="";
-		facebookAddress="";
-		blogAboutLink="";
+	private String link;
+	private String author;
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public ContactInfo() {
+		linkedInInfo = "";
+		twitterHandle = "";
+		emailAddress = "";
+		facebookAddress = "";
+		blogAboutLink = "";
+		link = "";
+		author = "";
 	}
 
 	public String getLinkedIn() {
@@ -20,12 +32,12 @@ public class ContactInfo {
 	}
 
 	public void setLinkedIn(String linkedInInfo) {
-		this.linkedInInfo=linkedInInfo;
+		this.linkedInInfo = linkedInInfo;
 	}
 
 	public void setTwitterHandle(String twitterHandle) {
 		this.twitterHandle = twitterHandle;
-		
+
 	}
 
 	public String getTwitterHandle() {
@@ -34,7 +46,7 @@ public class ContactInfo {
 
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
-		
+
 	}
 
 	public String getEmailAddress() {
@@ -43,7 +55,7 @@ public class ContactInfo {
 
 	public void setFacebookAddress(String facebookAddress) {
 		this.facebookAddress = facebookAddress;
-		
+
 	}
 
 	public String getFacebookAddress() {
@@ -52,11 +64,23 @@ public class ContactInfo {
 
 	public void setBlogAboutMeLink(String blogAboutLink) {
 		this.blogAboutLink = blogAboutLink;
-		
+
 	}
-	
-	public String getBlogAboutMeLink(){
+
+	public String getBlogAboutMeLink() {
 		return blogAboutLink;
 	}
 
+	public String getLink() {
+		return this.link;
+	}
+
+	public void setLink(String link) {
+		this.link = link;
+	}
+	
+	@Override
+	public String toString() {
+		return this.link + "," + this.author;
+	}
 }

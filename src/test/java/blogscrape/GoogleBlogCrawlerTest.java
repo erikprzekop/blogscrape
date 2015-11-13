@@ -1,33 +1,48 @@
 package blogscrape;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class GoogleBlogCrawlerTest {
 	String jsonString = "";
 
 	@Test
-	public void getsUrlConnectionUsingGoogleCustomSearchQuery() throws Exception {
-		GoogleCustomSearchQuery googleQuery = GoogleCustomSearchQuery.create().query("query").apiKey("apiKey")
-				.customEngineId("customEngineId");
-		HttpClient httpClient = mock(HttpClient.class);
-		String uri = "http://my.thing.com";
-		HttpResponse response = mock(HttpResponse.class);
-		HttpEntity entity = mock(HttpEntity.class);
-		HttpGet get = new HttpGet(uri);
-		when(response.getEntity()).thenReturn(entity);
-		when(httpClient.execute(get)).thenReturn(response);
-		InputStream inputStream = new ByteArrayInputStream(jsonString.getBytes(StandardCharsets.UTF_8));
-		when(entity.getContent()).thenReturn(inputStream);
+	public void getsCompleteUrlWithEntryOneThroughTen() throws Exception {
+		GoogleBlogCrawler crawler = new GoogleBlogCrawler();
+		String url = crawler.getUrl();
+		assertThat(url).contains("start=1");
+		assertThat(url).contains("num=10");
+	}
+
+	@Test
+	public void buildsQueryFromKeywords() throws Exception {
+		List<String> keywords = Arrays.asList("TDD", "\"Pair Programming\"");
+		GoogleBlogCrawler crawler = new GoogleBlogCrawler(keywords);
+		String url = crawler.getUrl();
+		assertThat(url).contains("%22TDD%22+OR+%22%22Pair+Programming%22%22");
+	}
+
+	/**
+	 * INTEGRATION TESTS - remove @Ignore to go to Google & get real results.
+	 */
+	@Test
+	@Ignore
+	public void getsJSONStringBackFromGoogle() throws Exception {
+		GoogleBlogCrawler crawler = new GoogleBlogCrawler();
+		String expected = crawler.crawl(1);
+		assertThat(expected).containsOnlyOnce("customsearch#search");
+	}
+
+	@Test
+	@Ignore
+	public void getsPage2() throws Exception {
+		GoogleBlogCrawler crawler = new GoogleBlogCrawler();
+		String expected = crawler.crawl(2);
+		assertThat(expected).contains("\"startIndex\": 21");
 	}
 }
