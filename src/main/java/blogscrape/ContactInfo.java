@@ -81,6 +81,6 @@ public class ContactInfo {
 	
 	@Override
 	public String toString() {
-		return this.link + "," + this.author;
+		return this.link + "," + this.author + "," + this.linkedInInfo + ","+ this.emailAddress + ","+ this.facebookAddress +","+ this.twitterHandle;
 	}
 }

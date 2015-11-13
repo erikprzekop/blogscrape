@@ -15,15 +15,18 @@ public class BlogScraper {
 
 	public static void main(String[] args) throws Exception {
 		List<String> keywordsList = buildKeywordsFromArgs(args);
-		
 		BlogScraper blogScraper = new BlogScraper(new GoogleBlogCrawler(keywordsList));
 		blogScraper.scrape();
 	}
 
 	public List<ContactInfo> scrape() throws Exception {
+		ContactInfoMiner miner = new ContactInfoMiner(new DocumentProvider());
 		List<ContactInfo> contacts = new ArrayList<ContactInfo>();
 		for (int i = 1; i <= 1; i++) {
 			contacts = crawler.crawlForContactInfo(i);
+			for (ContactInfo contactInfo : contacts) {				
+				miner.mine(contactInfo);
+			}	
 			printContactInfo(contacts);
 		}
 		return contacts;
