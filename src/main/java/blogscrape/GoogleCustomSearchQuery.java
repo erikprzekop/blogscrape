@@ -55,4 +55,8 @@ public class GoogleCustomSearchQuery {
 		this.currentEntry += this.pageSize;
 	}
 
+	public void setPageNumber(int pageNumber) {
+		currentEntry = (pageNumber - 1) * pageSize + 1;
+	}
+
 }
