@@ -10,18 +10,24 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 public class GoogleBlogCrawler {
-	private int maxPages = 1;
 	private GoogleCustomSearchQuery query;
 
-	public GoogleBlogCrawler(int maxPages) {
-		this.maxPages = maxPages;
+	public GoogleBlogCrawler() {
 		query = GoogleCustomSearchQuery.create().apiKey(GoogleCustomSearchQuery.API_KEY)
 				.customEngineId(GoogleCustomSearchQuery.SEARCH_ENGINE_ID).query(GoogleCustomSearchQuery.QUERY)
 				.pageSize(10);
 	}
 
-	public GoogleBlogCrawler() {
-		this(1);
+	public GoogleBlogCrawler(List<String> keywords) {
+		String queryString = "";
+		for (String keyword : keywords) {
+			if (queryString.length() > 0) {
+				queryString += "+OR+";
+			}
+			queryString += keyword;
+		}
+		query = GoogleCustomSearchQuery.create().apiKey(GoogleCustomSearchQuery.API_KEY)
+				.customEngineId(GoogleCustomSearchQuery.SEARCH_ENGINE_ID).query(queryString).pageSize(10);
 	}
 
 	public String getUrl() {
@@ -45,10 +51,6 @@ public class GoogleBlogCrawler {
 		String rawResults = crawl(pageNumber);
 		GoogleCrawlerJsonConsumer consumer = new GoogleCrawlerJsonConsumer();
 		return consumer.mapJsonResponseToContactInfo(rawResults);
-	}
-
-	public int getLimit() {
-		return this.maxPages;
 	}
 
 }

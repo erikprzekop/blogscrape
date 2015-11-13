@@ -1,7 +1,9 @@
 package blogscrape;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -18,13 +20,15 @@ public class GoogleBlogCrawlerTest {
 	}
 
 	@Test
-	public void acceptsPageLimit() throws Exception {
-		GoogleBlogCrawler crawler = new GoogleBlogCrawler(3);
-		assertEquals(3, crawler.getLimit());
+	public void buildsQueryFromKeywords() throws Exception {
+		List<String> keywords = Arrays.asList("TDD", "\"Pair+Programming\"");
+		GoogleBlogCrawler crawler = new GoogleBlogCrawler(keywords);
+		String url = crawler.getUrl();
+		assertThat(url).contains("TDD+OR+\"Pair+Programming\"");
 	}
 
 	/**
-	 * INTEGRATION TEST - remove @Ignore to go to Google & get real results.
+	 * INTEGRATION TESTS - remove @Ignore to go to Google & get real results.
 	 */
 	@Test
 	@Ignore
@@ -35,6 +39,7 @@ public class GoogleBlogCrawlerTest {
 	}
 
 	@Test
+	@Ignore
 	public void getsPage2() throws Exception {
 		GoogleBlogCrawler crawler = new GoogleBlogCrawler();
 		String expected = crawler.crawl(2);
