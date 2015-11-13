@@ -15,8 +15,8 @@ public class BlogScraper {
 
 	public static void main(String[] args) throws Exception {
 		List<String> keywordsList = buildKeywordsFromArgs(args);
+		
 		BlogScraper blogScraper = new BlogScraper(new GoogleBlogCrawler());
-
 		blogScraper.scrape(keywordsList);
 	}
 
@@ -24,7 +24,6 @@ public class BlogScraper {
 		List<ContactInfo> contacts = new ArrayList<ContactInfo>();
 		for (int i = 1; i <= 2; i++) {
 			contacts = crawler.crawlForContactInfo(i);
-
 			printContactInfo(contacts);
 		}
 		return contacts;
