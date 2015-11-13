@@ -1,5 +1,6 @@
 package blogscrape;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,12 +21,19 @@ public class BlogScraper {
 	}
 
 	public List<ContactInfo> scrape(List<String> keywordsList) throws Exception {
-		List<ContactInfo> contacts = crawler.crawlForContactInfo(1);
+		List<ContactInfo> contacts = new ArrayList<ContactInfo>();
+		for (int i = 1; i <= 2; i++) {
+			contacts = crawler.crawlForContactInfo(i);
 
+			printContactInfo(contacts);
+		}
+		return contacts;
+	}
+
+	private void printContactInfo(List<ContactInfo> contacts) {
 		for (ContactInfo contactInfo : contacts) {
 			System.out.println(contactInfo.toString());
 		}
-		return contacts;
 	}
 
 	private static List<String> buildKeywordsFromArgs(String[] args) {
