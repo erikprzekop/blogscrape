@@ -21,10 +21,10 @@ public class GoogleBlogCrawlerTest {
 
 	@Test
 	public void buildsQueryFromKeywords() throws Exception {
-		List<String> keywords = Arrays.asList("TDD", "\"Pair+Programming\"");
+		List<String> keywords = Arrays.asList("TDD", "\"Pair Programming\"");
 		GoogleBlogCrawler crawler = new GoogleBlogCrawler(keywords);
 		String url = crawler.getUrl();
-		assertThat(url).contains("TDD+OR+\"Pair+Programming\"");
+		assertThat(url).contains("%22TDD%22+OR+%22%22Pair+Programming%22%22");
 	}
 
 	/**

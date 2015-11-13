@@ -5,7 +5,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
@@ -30,7 +29,7 @@ public class BlogScraperTest {
 		expected.add(contactInfo);
 		when(mockCrawler.crawlForContactInfo(1)).thenReturn(expected);
 
-		List<ContactInfo> actual = blogScraper.scrape(Arrays.asList("Clean Code"));
+		List<ContactInfo> actual = blogScraper.scrape();
 
 		assertTrue(actual.size() == 1);
 	}

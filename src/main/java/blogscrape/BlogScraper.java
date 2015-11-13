@@ -16,13 +16,13 @@ public class BlogScraper {
 	public static void main(String[] args) throws Exception {
 		List<String> keywordsList = buildKeywordsFromArgs(args);
 		
-		BlogScraper blogScraper = new BlogScraper(new GoogleBlogCrawler());
-		blogScraper.scrape(keywordsList);
+		BlogScraper blogScraper = new BlogScraper(new GoogleBlogCrawler(keywordsList));
+		blogScraper.scrape();
 	}
 
-	public List<ContactInfo> scrape(List<String> keywordsList) throws Exception {
+	public List<ContactInfo> scrape() throws Exception {
 		List<ContactInfo> contacts = new ArrayList<ContactInfo>();
-		for (int i = 1; i <= 2; i++) {
+		for (int i = 1; i <= 1; i++) {
 			contacts = crawler.crawlForContactInfo(i);
 			printContactInfo(contacts);
 		}
@@ -36,7 +36,7 @@ public class BlogScraper {
 	}
 
 	private static List<String> buildKeywordsFromArgs(String[] args) {
-		if (args.length == 2) {
+		if (args.length == 1) {
 			String keywords = args[KEYWORD_PARM_INDEX];
 			if (keywords != null && !keywords.isEmpty()) {
 				return Arrays.asList(keywords.split(","));

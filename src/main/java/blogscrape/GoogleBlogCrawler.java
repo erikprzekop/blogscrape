@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.util.List;
 
@@ -18,14 +19,15 @@ public class GoogleBlogCrawler {
 				.pageSize(10);
 	}
 
-	public GoogleBlogCrawler(List<String> keywords) {
+	public GoogleBlogCrawler(List<String> keywords) throws Exception {
 		String queryString = "";
 		for (String keyword : keywords) {
 			if (queryString.length() > 0) {
-				queryString += "+OR+";
+				queryString += " OR ";
 			}
-			queryString += keyword;
+			queryString += "\"" + keyword + "\"";
 		}
+		queryString = URLEncoder.encode(queryString, "UTF-8");
 		query = GoogleCustomSearchQuery.create().apiKey(GoogleCustomSearchQuery.API_KEY)
 				.customEngineId(GoogleCustomSearchQuery.SEARCH_ENGINE_ID).query(queryString).pageSize(10);
 	}
