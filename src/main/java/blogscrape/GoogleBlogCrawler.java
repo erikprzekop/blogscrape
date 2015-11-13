@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.List;
 
 public class GoogleBlogCrawler {
 	private int maxPages = 1;
@@ -38,6 +39,12 @@ public class GoogleBlogCrawler {
 			sb.append(currentLine);
 		}
 		return sb.toString();
+	}
+
+	public List<ContactInfo> crawlForContactInfo(int pageNumber) throws MalformedURLException, IOException {
+		String rawResults = crawl(pageNumber);
+		GoogleCrawlerJsonConsumer consumer = new GoogleCrawlerJsonConsumer();
+		return consumer.mapJsonResponseToContactInfo(rawResults);
 	}
 
 	public int getLimit() {

@@ -31,7 +31,7 @@ public class GoogleBlogCrawlerTest {
 	public void getsJSONStringBackFromGoogle() throws Exception {
 		GoogleBlogCrawler crawler = new GoogleBlogCrawler();
 		String expected = crawler.crawl(1);
-		assertThat(expected).contains("customsearch#search");
+		assertThat(expected).containsOnlyOnce("customsearch#search");
 	}
 
 	@Test

@@ -10,25 +10,22 @@ public class GoogleCrawlerJsonConsumer {
 	private List<ContactInfo> contactInfoList = new ArrayList<ContactInfo>();
 
 	public List<ContactInfo> mapJsonResponseToContactInfo(String googleSearchJsonResponse) {
-		JSONArray contactJsonArray = new JSONArray(googleSearchJsonResponse);
+		JSONObject searchJsonObject = new JSONObject(googleSearchJsonResponse);
+		
+		JSONArray contactJsonArray = (JSONArray) searchJsonObject.get("items");
 
 		for (int i = 0; i < contactJsonArray.length(); i++) {
 			JSONObject contactJsonObject = (JSONObject) contactJsonArray.get(i);
-			String blogAuthor = (String) contactJsonObject.get("author");
 			String blogLink = (String) contactJsonObject.get("link");
-
-			if (blogLink.trim().isEmpty()) {
-				blogLink = (String) contactJsonObject.get("guid");
-			}
-			contactInfoList.add(buildContactInfo(blogAuthor, blogLink));
+			contactInfoList.add(buildContactInfo(blogLink));
 		}
 		return contactInfoList;
 	}
 
-	private ContactInfo buildContactInfo(String blogAuthor, String blogLink) {
+	private ContactInfo buildContactInfo(String blogLink) {
 		ContactInfo contactInfo = new ContactInfo();
 		contactInfo.setLink(blogLink);
-		contactInfo.setAuthor(blogAuthor);
+//		contactInfo.setAuthor(blogAuthor);
 		return contactInfo;
 	}
 
