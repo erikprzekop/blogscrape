@@ -12,7 +12,7 @@ public class BlogScraper {
 	private static final int KEYWORD_PARM_INDEX = 1;
 
 	public static void main(String[] args) throws Exception {
-		String urlParm = args[URL_PARM_INDEX];
+		 String urlParm = args[URL_PARM_INDEX];
 		List<String> keywordsList = buildKeywordsFromArgs(args);
 		Document doc = Jsoup.connect(urlParm).get();
 		String body = doc.body().text();
