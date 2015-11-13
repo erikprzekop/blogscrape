@@ -16,6 +16,9 @@ public class GoogleBlogCrawlerTest {
 		assertThat(url).contains("num=10");
 	}
 
+	/**
+	 * INTEGRATION TEST - remove @Ignore to go to Google & get real results.
+	 */
 	@Test
 	@Ignore
 	public void getsJSONStringBackFromGoogle() throws Exception {
