@@ -8,16 +8,26 @@ import org.json.JSONObject;
 
 public class GoogleCrawlerJsonConsumer {
 	private List<ContactInfo> contactInfoList = new ArrayList<ContactInfo>();
+	private ContactInfoMiner miner;
+	
+	public GoogleCrawlerJsonConsumer(ContactInfoMiner miner) {
+		this.miner = miner;
+	}
 
-	public List<ContactInfo> mapJsonResponseToContactInfo(String googleSearchJsonResponse) {
+	public GoogleCrawlerJsonConsumer() {
+		this.miner = new ContactInfoMiner(new DocumentProvider());
+	}
+
+	public List<ContactInfo> mapJsonResponseToContactInfo(String googleSearchJsonResponse) throws Exception {
 		JSONObject searchJsonObject = new JSONObject(googleSearchJsonResponse);
 		
 		JSONArray contactJsonArray = (JSONArray) searchJsonObject.get("items");
-
 		for (int i = 0; i < contactJsonArray.length(); i++) {
 			JSONObject contactJsonObject = (JSONObject) contactJsonArray.get(i);
 			String blogLink = (String) contactJsonObject.get("link");
-			contactInfoList.add(buildContactInfo(blogLink));
+			ContactInfo contactInfo = buildContactInfo(blogLink);
+			miner.mine(contactInfo);
+			contactInfoList.add(contactInfo);
 		}
 		return contactInfoList;
 	}
@@ -25,7 +35,6 @@ public class GoogleCrawlerJsonConsumer {
 	private ContactInfo buildContactInfo(String blogLink) {
 		ContactInfo contactInfo = new ContactInfo();
 		contactInfo.setLink(blogLink);
-//		contactInfo.setAuthor(blogAuthor);
 		return contactInfo;
 	}
 

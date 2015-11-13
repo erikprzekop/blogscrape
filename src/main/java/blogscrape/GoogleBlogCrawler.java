@@ -49,7 +49,7 @@ public class GoogleBlogCrawler {
 		return sb.toString();
 	}
 
-	public List<ContactInfo> crawlForContactInfo(int pageNumber) throws MalformedURLException, IOException {
+	public List<ContactInfo> crawlForContactInfo(int pageNumber) throws Exception {
 		String rawResults = crawl(pageNumber);
 		GoogleCrawlerJsonConsumer consumer = new GoogleCrawlerJsonConsumer();
 		return consumer.mapJsonResponseToContactInfo(rawResults);

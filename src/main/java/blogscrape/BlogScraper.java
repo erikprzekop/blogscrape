@@ -20,13 +20,9 @@ public class BlogScraper {
 	}
 
 	public List<ContactInfo> scrape() throws Exception {
-		ContactInfoMiner miner = new ContactInfoMiner(new DocumentProvider());
 		List<ContactInfo> contacts = new ArrayList<ContactInfo>();
 		for (int i = 1; i <= 1; i++) {
-			contacts = crawler.crawlForContactInfo(i);
-			for (ContactInfo contactInfo : contacts) {				
-				miner.mine(contactInfo);
-			}	
+			contacts = crawler.crawlForContactInfo(i);	
 			printContactInfo(contacts);
 		}
 		return contacts;
