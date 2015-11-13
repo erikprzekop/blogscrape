@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.List;
 
 public class GoogleBlogCrawler {
 
@@ -18,7 +19,7 @@ public class GoogleBlogCrawler {
 		return query.getQuery();
 	}
 
-	public String crawl() throws MalformedURLException, IOException {
+	public List<ContactInfo> crawl() throws MalformedURLException, IOException {
 		InputStream inputStream = new URL(getUrl()).openStream();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
 		String currentLine;
@@ -26,7 +27,8 @@ public class GoogleBlogCrawler {
 		while ((currentLine = reader.readLine()) != null) {
 			sb.append(currentLine);
 		}
-		return sb.toString();
+		GoogleCrawlerJsonConsumer consumer = new GoogleCrawlerJsonConsumer();
+		return consumer.mapJsonResponseToContactInfo(sb.toString());
 	}
 
 }

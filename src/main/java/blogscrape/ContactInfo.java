@@ -78,5 +78,9 @@ public class ContactInfo {
 	public void setLink(String link) {
 		this.link = link;
 	}
-
+	
+	@Override
+	public String toString() {
+		return this.link + "," + this.author;
+	}
 }

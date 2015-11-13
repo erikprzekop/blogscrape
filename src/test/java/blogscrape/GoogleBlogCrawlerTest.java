@@ -1,6 +1,9 @@
 package blogscrape;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -23,7 +26,8 @@ public class GoogleBlogCrawlerTest {
 	@Ignore
 	public void getsJSONStringBackFromGoogle() throws Exception {
 		GoogleBlogCrawler crawler = new GoogleBlogCrawler();
-		String expected = crawler.crawl();
-		assertThat(expected).contains("customsearch#search");
+		List<ContactInfo> expected = crawler.crawl();
+
+		assertTrue(expected.size() > 5);
 	}
 }
