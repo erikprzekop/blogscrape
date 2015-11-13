@@ -5,7 +5,6 @@ public class GoogleCustomSearchQuery {
 	public static final String QUERY = "%22clean+code%22+OR+TDD+OR+%22Pair+Programming%22";
 	public static final String SEARCH_ENGINE_ID = "000219294737032066243%3A0ubxwxlkb7o";
 	public static final String API_KEY = "AIzaSyBtSmw4yAkt-iYUqbxWSKxhO9B_0hAwuUM";
-
 	private static final String BASE_URL = "https://www.googleapis.com/customsearch/v1";
 	private StringBuilder queryString = new StringBuilder(BASE_URL);
 	private int pageSize = 10;
