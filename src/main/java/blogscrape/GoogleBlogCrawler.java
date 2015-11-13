@@ -10,25 +10,45 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 public class GoogleBlogCrawler {
+	private int maxPages = 1;
+	private GoogleCustomSearchQuery query;
 
-	public String getUrl() {
-		GoogleCustomSearchQuery query = GoogleCustomSearchQuery.create().apiKey(GoogleCustomSearchQuery.API_KEY)
+	public GoogleBlogCrawler(int maxPages) {
+		this.maxPages = maxPages;
+		query = GoogleCustomSearchQuery.create().apiKey(GoogleCustomSearchQuery.API_KEY)
 				.customEngineId(GoogleCustomSearchQuery.SEARCH_ENGINE_ID).query(GoogleCustomSearchQuery.QUERY)
 				.pageSize(10);
+	}
 
+	public GoogleBlogCrawler() {
+		this(1);
+	}
+
+	public String getUrl() {
 		return query.getQuery();
 	}
 
-	public List<ContactInfo> crawl() throws MalformedURLException, IOException {
-		InputStream inputStream = new URL(getUrl()).openStream();
+	public String crawl(int pageNumber) throws MalformedURLException, IOException {
+		query.setPageNumber(pageNumber);
+		String url = query.getQuery();
+		InputStream inputStream = new URL(url).openStream();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, Charset.forName("UTF-8")));
 		String currentLine;
 		StringBuilder sb = new StringBuilder();
 		while ((currentLine = reader.readLine()) != null) {
 			sb.append(currentLine);
 		}
+		return sb.toString();
+	}
+
+	public List<ContactInfo> crawlForContactInfo(int pageNumber) throws MalformedURLException, IOException {
+		String rawResults = crawl(pageNumber);
 		GoogleCrawlerJsonConsumer consumer = new GoogleCrawlerJsonConsumer();
-		return consumer.mapJsonResponseToContactInfo(sb.toString());
+		return consumer.mapJsonResponseToContactInfo(rawResults);
+	}
+
+	public int getLimit() {
+		return this.maxPages;
 	}
 
 }

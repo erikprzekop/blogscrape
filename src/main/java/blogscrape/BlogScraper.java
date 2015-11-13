@@ -20,7 +20,7 @@ public class BlogScraper {
 	}
 
 	public List<ContactInfo> scrape(List<String> keywordsList) throws Exception {
-		List<ContactInfo> contacts = crawler.crawl();
+		List<ContactInfo> contacts = crawler.crawlForContactInfo(1);
 
 		for (ContactInfo contactInfo : contacts) {
 			System.out.println(contactInfo.toString());

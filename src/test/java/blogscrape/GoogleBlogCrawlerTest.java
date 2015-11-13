@@ -1,9 +1,7 @@
 package blogscrape;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -19,6 +17,12 @@ public class GoogleBlogCrawlerTest {
 		assertThat(url).contains("num=10");
 	}
 
+	@Test
+	public void acceptsPageLimit() throws Exception {
+		GoogleBlogCrawler crawler = new GoogleBlogCrawler(3);
+		assertEquals(3, crawler.getLimit());
+	}
+
 	/**
 	 * INTEGRATION TEST - remove @Ignore to go to Google & get real results.
 	 */
@@ -26,8 +30,14 @@ public class GoogleBlogCrawlerTest {
 	@Ignore
 	public void getsJSONStringBackFromGoogle() throws Exception {
 		GoogleBlogCrawler crawler = new GoogleBlogCrawler();
-		List<ContactInfo> expected = crawler.crawl();
+		String expected = crawler.crawl(1);
+		assertThat(expected).containsOnlyOnce("customsearch#search");
+	}
 
-		assertTrue(expected.size() > 5);
+	@Test
+	public void getsPage2() throws Exception {
+		GoogleBlogCrawler crawler = new GoogleBlogCrawler();
+		String expected = crawler.crawl(2);
+		assertThat(expected).contains("\"startIndex\": 21");
 	}
 }

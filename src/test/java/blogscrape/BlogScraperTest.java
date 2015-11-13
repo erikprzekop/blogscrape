@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 public class BlogScraperTest {
 
 	private BlogScraper blogScraper;
-	
+
 	private GoogleBlogCrawler mockCrawler;
 
 	@Before
@@ -21,14 +21,14 @@ public class BlogScraperTest {
 		mockCrawler = Mockito.mock(GoogleBlogCrawler.class);
 		blogScraper = new BlogScraper(mockCrawler);
 	}
-	
+
 	@Test
 	public void shouldReturnListOfContactInfo() throws Exception {
 		List<ContactInfo> expected = new ArrayList<ContactInfo>();
 		ContactInfo contactInfo = new ContactInfo();
 		expected.add(contactInfo);
-		Mockito.when(mockCrawler.crawl()).thenReturn(expected);
-		
+		Mockito.when(mockCrawler.crawlForContactInfo(1)).thenReturn(expected);
+
 		List<ContactInfo> actual = blogScraper.scrape(Arrays.asList("Clean Code"));
 
 		assertTrue(actual.size() == 1);
